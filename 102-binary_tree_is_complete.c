@@ -1,6 +1,4 @@
 #include "binary_trees.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 /**
  * binary_tree_is_complete - Checks if a binary tree is complete.
@@ -11,38 +9,43 @@
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-	if (tree == NULL)
-		return (0);
+    if (tree == NULL)
+        return (0);
 
-	binary_tree_t *queue[1024];
-	size_t front = 0, rear = 0;
-	int non_complete_flag = 0;
+    return (is_complete(tree, 0, countNodes(tree)));
+}
 
-	queue[rear] = (binary_tree_t *)tree;
-	rear++;
+/**
+ * is_complete - Helper function to check if a binary tree is complete.
+ * @tree: A pointer to the root node of the tree to check.
+ * @index: The current index of the node.
+ * @count: The total number of nodes in the tree.
+ *
+ * Return: 1 if the tree is complete, 0 otherwise.
+ */
+int is_complete(const binary_tree_t *tree, int index, int count)
+{
+    if (tree == NULL)
+        return (1);
 
-	while (front < rear)
-	{
-		binary_tree_t *current = queue[front];
+    if (index >= count)
+        return (0);
 
-		front++;
+    return (is_complete(tree->left, 2 * index + 1, count) &&
+            is_complete(tree->right, 2 * index + 2, count));
+}
 
-		if (current == NULL)
-		{
-			non_complete_flag = 1;
-		}
-		else
-		{
-			if (non_complete_flag)
-				return (0);
+/**
+ * countNodes - Helper function to count the total
+ * number of nodes in a binary tree.
+ * @tree: A pointer to the root node of the tree.
+ *
+ * Return: The total number of nodes in the tree.
+ */
+int countNodes(const binary_tree_t *tree)
+{
+    if (tree == NULL)
+        return (0);
 
-			queue[rear] = current->left;
-			rear++;
-
-			queue[rear] = current->right;
-			rear++;
-		}
-	}
-
-	return (1);
+    return (1 + countNodes(tree->left) + countNodes(tree->right));
 }
