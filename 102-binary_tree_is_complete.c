@@ -9,10 +9,10 @@
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-    if (tree == NULL)
-        return (0);
+	if (tree == NULL)
+		return (0);
 
-    return (is_complete(tree, 0, countNodes(tree)));
+	return (is_complete(tree, 0, countNodes(tree)));
 }
 
 /**
@@ -25,14 +25,14 @@ int binary_tree_is_complete(const binary_tree_t *tree)
  */
 int is_complete(const binary_tree_t *tree, int index, int count)
 {
-    if (tree == NULL)
-        return (1);
+	if (tree == NULL)
+		return (1);
 
-    if (index >= count)
-        return (0);
+	if (index >= count)
+		return (0);
 
-    return (is_complete(tree->left, 2 * index + 1, count) &&
-            is_complete(tree->right, 2 * index + 2, count));
+	return (is_complete(tree->left, 2 * index + 1, count) &&
+			is_complete(tree->right, 2 * index + 2, count));
 }
 
 /**
@@ -44,8 +44,8 @@ int is_complete(const binary_tree_t *tree, int index, int count)
  */
 int countNodes(const binary_tree_t *tree)
 {
-    if (tree == NULL)
-        return (0);
+	if (tree == NULL)
+		return (0);
 
-    return (1 + countNodes(tree->left) + countNodes(tree->right));
+	return (1 + countNodes(tree->left) + countNodes(tree->right));
 }
